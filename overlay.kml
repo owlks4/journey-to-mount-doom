@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<GroundOverlay>
+	<name>Map of Middle-earth</name>
+	<color>aaffffff</color>
+	<Icon>
+		<href>middle-earth-scaled.jpg</href>
+		<viewBoundScale>0.75</viewBoundScale>
+	</Icon>
+	<LatLonBox>
+		<north>59.99225953361199</north>
+		<south>29.746180147081933</south>
+		<east>35.21900591439632</east>
+		<west>-17.26564925188753</west>
+	</LatLonBox>
+</GroundOverlay>
+</kml>
