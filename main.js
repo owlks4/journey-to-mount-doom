@@ -8,7 +8,7 @@ import world_cities from "./public/world_cities.json"
 import overlay from "./public/middle-earth-scaled.jpg"
 import Graph from 'node-dijkstra';
 import { getDistance } from 'geolib';
-import mapImage from './public/map.webp';
+import mapImage from './public/map.webp'; 
 
 let FRODO_AND_SAM_PATH = [[1484.00, 1162.00], [1492.00, 1176.00], [1492.00, 1176.00], [1492.00, 1176.00], [1502.00, 1184.00], [1502.00, 1184.00], [1502.00, 1184.00], [1511.00, 1195.00], [1511.00, 1195.00], 
 [1511.00, 1195.00], [1532.00, 1207.00], [1532.00, 1207.00], [1532.00, 1207.00], [1554.00, 1217.00], [1554.00, 1217.00], [1554.00, 1217.00], [1574.00, 1220.00], [1574.00, 1220.00], 
@@ -91,6 +91,8 @@ let FRODO_AND_SAM_PATH = [[1484.00, 1162.00], [1492.00, 1176.00], [1492.00, 1176
 
 let markersLayer = null;
 
+let DISTANCE_KM = 41;   // <------ Hi! Update this to the number of kilometres you've travelled!
+
 start()
 
 async function start(){
@@ -118,20 +120,17 @@ async function start(){
         pointsList[i] = [4334 - pointsList[i][1], pointsList[i][0]]
     }
 
-    let DISTANCE_KM = 17;   // <------ Hi! Update this to the number of kilometres you've travelled!
-    
     let distanceTravelledAlongLine = DISTANCE_KM * 220;  
     var polyline = new L.Polyline(getPolylinePointsListUpToDistance(pointsList, distanceTravelledAlongLine), {
         color: 'red',
-        weight: 3,
-        opacity: 0.5,
+        weight: 6,
+        opacity: 0.7,
         smoothFactor: 1
     });
+    polyline.bindPopup("<strong>This line represents the<br>total distance travelled:</strong><br>"+DISTANCE_KM+" km")
     polyline.addTo(map);
 
     console.log(polyline)
-
-    //alert("Get user to draw their route (or load it from file) and put in the total number of metres run. Then zoom to where they currently are and show them cool rolling notifications like 'nearest settlement: X', 'Y km from Paris' etc");
 }
 
 function getPolylinePointsListUpToDistance(pointsList, distanceKm){
