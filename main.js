@@ -91,7 +91,7 @@ let FRODO_AND_SAM_PATH = [[1484.00, 1162.00], [1492.00, 1176.00], [1492.00, 1176
 
 let markersLayer = null;
 
-let DISTANCE_KM = 41;   // <------ Hi! Update this to the number of kilometres you've travelled!
+let DISTANCE_KM = 43.5;   // <------ Hi! Update this to the number of kilometres you've travelled!
 
 start()
 
