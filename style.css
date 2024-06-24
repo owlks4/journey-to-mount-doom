@@ -1,94 +1,50 @@
-html {margin: 0; color:rgb(248, 234, 157); background-color:#1f1f1f; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif}
+html {
+  margin: 0;
+  color:rgb(248, 234, 157);
+  background-color:#1f1f1f;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-body {margin: 0; }
+body {
+  margin: 0;
+}
 
-main{width:60vw; text-align:center; margin:auto;}
-
-#map { height: 60vh; border: 2px solid black; border-radius:0.25em;}
-
-#top { text-align: center; font-size: 1.5em; margin: 0.6em 0 0.4em 0; letter-spacing:0.04em; font-weight:bold;}
-
-#km-input {font-size:1.2em; width:5em; text-align: center; margin-bottom:0.25em;}
-
-.territory {
-  box-sizing: border-box;
-  position: absolute;
-  border-radius: 0.5em;
-  padding: 0.5em;
+main{
+  width:60vw;
   text-align:center;
-  width:fit-content;
-  font-family: sans-serif;
-  border: 0.1em solid rgb(94,94,94);
-  transform: translate(-50%, -50%);
-  z-index: 1;
-  cursor:pointer;
-  transition: opacity 0.045s;
-  line-height:1em;
-  background-color: rgb(255, 255, 255);
-  color:black;
+  margin:auto;
 }
 
-.ventrue {
+#map {
+  height: 60vh;
+  border: 2px solid black;
+  border-radius:0.25em;
+}
+
+input {
+  background-color: black;
   color: white;
-  background-color: rgb(104,0,148);
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight:bold;
 }
 
-.daeva {
-  color: white;
-  background-color: rgb(4,0,255);
+#km-input {
+  font-size:1.2em;
+  width:5em;
+  text-align: center;
+  margin-bottom:0.125em;
 }
 
-.mekhet {
-  color: black;
-  background-color: rgb(49,189,223);
-}
-
-.gangrel {
-  color: black;
-  background-color: rgb(184,222,205);
-}
-
-.nos, .nosferatu {
-  color: black;
-  background-color: rgb(130,117,91);
-}
-
-.invictus {
-  color: white;
-  background-color: rgb(232,19,19);
-}
-
-.carthian {
-  color: black;
-  background-color: rgb(239,95,158);
-}
-
-.crone {
-  color: black;
-  background-color: rgb(0,138,14);
-}
-
-.lance {
-  color: black;
-  background-color: rgb(255,227,66);
-}
-
-.ordo {
-  color: black;
-  background-color: rgb(250,120,17);
-}
-
-.court {
-  color: black;
-  background-color: rgb(16,113,229);
-}
-
-.personal {
-  color: rgb(84, 90 ,100);
-  background-color: rgb(178,185,186);
-}
-
-.enemy {
-  color: white;
-  background-color: rgb(58,65,74);
+#top {
+  text-align:center;
+  font-size: 1.5em;
+  margin: 0.6em 0 0.4em 0;
+  letter-spacing:0.04em;
+  font-weight:bold;
+  color:red;
+  text-shadow:
+  1px 1px 0 rgba(0,0,0,0.25),
+  -1px 1px 0 rgba(0,0,0,0.25),
+  -1px -1px 0 rgba(0,0,0,0.25),
+  1px -1px 0 rgba(0,0,0,0.25);
 }

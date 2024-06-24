@@ -93,6 +93,7 @@ let markersLayer = null;
 
 let DISTANCE_KM = 43.5;   // <------ Hi! Update this to the number of kilometres you've travelled!
 let polyline = null;
+let polylineBG = null;
 
 let distanceInput = document.getElementById("km-input");
 distanceInput.value = DISTANCE_KM;
@@ -138,18 +139,28 @@ async function spawnPolyline(){
 
     if (polyline != null){
         await polyline.removeFrom(map);
+        await polylineBG.removeFrom(map);
     }
 
     let ptsToDistance = getPolylinePointsListUpToDistance(pointsList, distanceTravelledAlongLine);
 
-    polyline = new L.Polyline(ptsToDistance, {
-        color: 'red',
-        weight: 6,
+    polylineBG = new L.Polyline(ptsToDistance, {
+        color: 'black',
+        weight: 10,
         opacity: 0.9,
         smoothFactor: 0
     });
 
-    polyline.bindPopup("<strong>This line represents the<br>total distance travelled:</strong><br>"+DISTANCE_KM+" km")
+    polyline = new L.Polyline(ptsToDistance, {
+        color: 'red',
+        weight: 5,
+        opacity: 0.9,
+        smoothFactor: 0
+    });
+    let popupText = "<strong>This line represents the<br>total distance travelled:</strong><br>"+DISTANCE_KM+" km";
+    polylineBG.bindPopup(popupText)
+    polyline.bindPopup(popupText)
+    polylineBG.addTo(map);
     polyline.addTo(map);
     map.flyTo(ptsToDistance[ptsToDistance.length - 1], 0.5);
 
