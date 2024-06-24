@@ -1,8 +1,14 @@
-html {margin: 0}
+html {margin: 0; color:#f0efef; background-color:#1a1a1a; font-family: sans-serif}
 
-body {margin: 0}
+body {margin: 0; }
 
-#map { height: 100vh; }
+main{width:60vw; text-align:center; margin:auto;}
+
+#map { height: 60vh; border: 2px solid black; border-radius:0.25em;}
+
+#top { text-align: center; font-size: 1.5em; margin: 0.6em 0 0.4em 0; letter-spacing:0.04em; font-weight:bold;}
+
+#km-input {font-size:1.2em; width:5em; text-align: center; margin-bottom:0.25em;}
 
 .territory {
   box-sizing: border-box;

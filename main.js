@@ -92,8 +92,17 @@ let FRODO_AND_SAM_PATH = [[1484.00, 1162.00], [1492.00, 1176.00], [1492.00, 1176
 let markersLayer = null;
 
 let DISTANCE_KM = 43.5;   // <------ Hi! Update this to the number of kilometres you've travelled!
+let polyline = null;
+
+let distanceInput = document.getElementById("km-input");
+distanceInput.value = DISTANCE_KM;
+distanceInput.oninput = (e) => {DISTANCE_KM = e.target.value; spawnPolyline()};
+
+let map = null;
+let pointsList = null;
 
 start()
+distanceInput.oninput();
 
 async function start(){
 
@@ -102,7 +111,7 @@ async function start(){
     //map.setMinZoom(4)    
 
     await import('./public/map.webp')
-    const map = L.map('map', {
+    map = L.map('map', {
         crs: L.CRS.Simple,
         minZoom: -2,
         maxZoom: 2
@@ -114,21 +123,35 @@ async function start(){
 
     markersLayer = new L.layerGroup().addTo(map)
 
-    let pointsList = FRODO_AND_SAM_PATH
+    pointsList = FRODO_AND_SAM_PATH;
 
     for (let i = 0; i < pointsList.length; i++){
         pointsList[i] = [4334 - pointsList[i][1], pointsList[i][0]]
     }
 
+    spawnPolyline();
+}
+
+async function spawnPolyline(){
+
     let distanceTravelledAlongLine = DISTANCE_KM * 220;  
-    var polyline = new L.Polyline(getPolylinePointsListUpToDistance(pointsList, distanceTravelledAlongLine), {
+
+    if (polyline != null){
+        await polyline.removeFrom(map);
+    }
+
+    let ptsToDistance = getPolylinePointsListUpToDistance(pointsList, distanceTravelledAlongLine);
+
+    polyline = new L.Polyline(ptsToDistance, {
         color: 'red',
         weight: 6,
-        opacity: 0.7,
-        smoothFactor: 1
+        opacity: 0.9,
+        smoothFactor: 0
     });
+
     polyline.bindPopup("<strong>This line represents the<br>total distance travelled:</strong><br>"+DISTANCE_KM+" km")
     polyline.addTo(map);
+    map.flyTo(ptsToDistance[ptsToDistance.length - 1], 0.5);
 
     console.log(polyline)
 }
