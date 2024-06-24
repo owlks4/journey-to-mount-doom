@@ -138,18 +138,21 @@ let polylineBG = null;
 
 let landmarks = [
     new Landmark("Hobbiton",0),
-    new Landmark("Bucklebury Ferry",67),
+    new Landmark("Bucklebury Ferry",73),
     new Landmark("Bree",217),
-    new Landmark("The Last Bridge",540),
-    new Landmark("Rivendell",750),
-    new Landmark("Doors of Durin",1025),
-    new Landmark("the Mirrormere",1124),
-    new Landmark("Lothlorien",1251),
-    new Landmark("Falls of Rauros",1700),
-    new Landmark("The Black Gate",1900),
-    new Landmark("Ithilien",1960),
-    new Landmark("Shelob's Lair",2020),
-    new Landmark("Mount Doom",2270)
+    new Landmark("Weathertop",345),
+    new Landmark("the Last Bridge",532),
+    new Landmark("Rivendell",743),
+    new Landmark("the Pass of Caradhras",935),
+    new Landmark("Doors of Durin",1062),
+    new Landmark("the Mirrormere",1155),
+    new Landmark("Lothlorien",1310),
+    new Landmark("Falls of Rauros",1807),
+    new Landmark("The Dead Marshes",1970),
+    new Landmark("The Black Gate",2025),
+    new Landmark("Ithilien",2105),
+    new Landmark("Shelob's Lair",2260),
+    new Landmark("Mount Doom",2510)
 ]
 
 let distanceInput = document.getElementById("km-input");
@@ -199,7 +202,7 @@ async function start(){
 
 async function spawnPolyline(){
 
-    let distanceTravelledAlongLine = DISTANCE_KM * 190;  
+    let distanceTravelledAlongLine = DISTANCE_KM;  
 
     if (polyline != null){
         await polyline.removeFrom(map);
@@ -234,6 +237,10 @@ async function spawnPolyline(){
     //console.log(polyline)
 }
 
+function euclideanMiddleEarth(a, b){
+    return Math.sqrt(Math.pow(b[0] - a[0],2) + Math.pow(b[1] - a[1],2)) / 1.8;
+}
+
 function getPolylinePointsListUpToDistance(pointsList, distanceKm){
     let newPoints = [];
     let cumuDist = 0;
@@ -251,7 +258,7 @@ function getPolylinePointsListUpToDistance(pointsList, distanceKm){
         let distFromPrev= 0;
         
         if (i > 0){
-            distFromPrev = getDistance(pointsList[i-1], pointsList[i]) / 1000.0;
+            distFromPrev = euclideanMiddleEarth(pointsList[i-1], pointsList[i]);
         }
         //console.log(cumuDist + distFromPrev + ", "+distanceKm)
         if (cumuDist + distFromPrev < distanceKm){
