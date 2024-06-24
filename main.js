@@ -121,6 +121,10 @@ class Landmark {
     }
 }
 
+if (window.innerWidth < window.innerHeight){
+    document.body.style = "font-size:0.75em;"
+}
+
 let markersLayer = null;
 
 let DISTANCE_KM = 43.5;   // <------ Hi! Update this to the number of kilometres you've travelled!
