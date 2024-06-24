@@ -89,15 +89,68 @@ let FRODO_AND_SAM_PATH = [[1484.00, 1162.00], [1492.00, 1176.00], [1492.00, 1176
 [3594.00, 2485.00], [3600.00, 2486.00], [3612.00, 2486.00], [3612.00, 2486.00], [3612.00, 2486.00], [3617.00, 2488.00], [3620.00, 2492.00], [3623.00, 2496.00], [3624.00, 2496.00],
 [3625.00, 2503.00], [3626.00, 2510.00], [3626.00, 2510.00], [3625.00, 2516.00], [3622.00, 2534.00], [3622.00, 2536.00], [3621.00, 2541.00]]
 
+let sightseeingBar = document.getElementById("sightseeing");
+
+class Landmark {
+    constructor(name, distance){
+        this.name = name;
+        this.distance = distance;
+        this.div = this.createCard();
+        this.updateDivText();
+    }
+
+    updateDivText(){
+        let remainingDist = Math.round(this.distance - DISTANCE_KM);
+        let desc = "<br><strong>"+this.name+"</strong>";
+        if (Math.abs(remainingDist) < 4){
+            desc = "You have reached"+desc;
+        }
+        else if (remainingDist < 0){
+            desc = Math.abs(remainingDist) +" km since "+desc;
+        } else {
+            desc = remainingDist+" km until "+desc;
+        }
+        this.div.innerHTML = desc;
+    }
+
+    createCard(){
+        let card = document.createElement("div");
+        card.className = "card";
+        sightseeingBar.appendChild(card);
+        return card;
+    }
+}
+
 let markersLayer = null;
 
 let DISTANCE_KM = 43.5;   // <------ Hi! Update this to the number of kilometres you've travelled!
 let polyline = null;
 let polylineBG = null;
 
+let landmarks = [
+    new Landmark("Hobbiton",0),
+    new Landmark("Bucklebury Ferry",67),
+    new Landmark("Bree",217),
+    new Landmark("The Last Bridge",540),
+    new Landmark("Rivendell",750),
+    new Landmark("Doors of Durin",1025),
+    new Landmark("the Mirrormere",1125),
+    new Landmark("Lothlorien",1250),
+    new Landmark("Falls of Rauros",1700),
+    new Landmark("The Black Gate",1900),
+    new Landmark("Ithilien",1960),
+    new Landmark("Shelob's Lair",2020),
+    new Landmark("Mount Doom",2270)
+]
+
 let distanceInput = document.getElementById("km-input");
 distanceInput.value = DISTANCE_KM;
-distanceInput.oninput = (e) => {DISTANCE_KM = e.target.value; spawnPolyline()};
+distanceInput.oninput = (e) => {
+    DISTANCE_KM = e.target.value;
+    spawnPolyline();
+    landmarks.forEach(landmark => {
+        landmark.updateDivText();
+    })};
 
 let map = null;
 let pointsList = null;
@@ -135,7 +188,7 @@ async function start(){
 
 async function spawnPolyline(){
 
-    let distanceTravelledAlongLine = DISTANCE_KM * 220;  
+    let distanceTravelledAlongLine = DISTANCE_KM * 190;  
 
     if (polyline != null){
         await polyline.removeFrom(map);
@@ -146,18 +199,18 @@ async function spawnPolyline(){
 
     polylineBG = new L.Polyline(ptsToDistance, {
         color: 'black',
-        weight: 10,
+        weight: 12,
         opacity: 0.9,
         smoothFactor: 0
     });
 
     polyline = new L.Polyline(ptsToDistance, {
         color: 'red',
-        weight: 5,
+        weight: 6,
         opacity: 0.9,
         smoothFactor: 0
     });
-    let popupText = "<strong>This line represents the<br>total distance travelled:</strong><br>"+DISTANCE_KM+" km";
+    let popupText = "<strong>This line represents the<br>total distance travelled:</strong><br><div style=text-align:center;font-size:1.5em;>"+DISTANCE_KM+" km</div>";
     polylineBG.bindPopup(popupText)
     polyline.bindPopup(popupText)
     polylineBG.addTo(map);
