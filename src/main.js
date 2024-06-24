@@ -4,11 +4,10 @@ import viteLogo from '/vite.svg'
 import 'leaflet'
 import "leaflet-providers";
 import omnivore from 'leaflet-omnivore';
-import world_cities from "./public/world_cities.json"
-import overlay from "./public/middle-earth-scaled.jpg"
+import world_cities from "../public/world_cities.json"
 import Graph from 'node-dijkstra';
 import { getDistance } from 'geolib';
-import mapImage from './public/map.webp'; 
+import mapImage from '../public/map.webp'; 
 
 let FRODO_AND_SAM_PATH = [[1484.00, 1162.00], [1492.00, 1176.00], [1492.00, 1176.00], [1492.00, 1176.00], [1502.00, 1184.00], [1502.00, 1184.00], [1502.00, 1184.00], [1511.00, 1195.00], [1511.00, 1195.00], 
 [1511.00, 1195.00], [1532.00, 1207.00], [1532.00, 1207.00], [1532.00, 1207.00], [1554.00, 1217.00], [1554.00, 1217.00], [1554.00, 1217.00], [1574.00, 1220.00], [1574.00, 1220.00], 
@@ -176,7 +175,7 @@ async function start(){
     //L.tileLayer.provider("Esri.WorldGrayCanvas").addTo(map);
     //map.setMinZoom(4)    
 
-    await import('./public/map.webp')
+    await import('../public/map.webp')
     map = L.map('map', {
         crs: L.CRS.Simple,
         minZoom: -2,
