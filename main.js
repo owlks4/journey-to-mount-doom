@@ -117,6 +117,11 @@ class Landmark {
         let card = document.createElement("div");
         card.className = "card";
         sightseeingBar.appendChild(card);
+        card.onclick = () => {
+            distanceInput.value = this.distance;
+            distanceInput.oninput()
+            card.scrollIntoView();
+        };
         return card;
     }
 }
@@ -138,8 +143,8 @@ let landmarks = [
     new Landmark("The Last Bridge",540),
     new Landmark("Rivendell",750),
     new Landmark("Doors of Durin",1025),
-    new Landmark("the Mirrormere",1125),
-    new Landmark("Lothlorien",1250),
+    new Landmark("the Mirrormere",1124),
+    new Landmark("Lothlorien",1251),
     new Landmark("Falls of Rauros",1700),
     new Landmark("The Black Gate",1900),
     new Landmark("Ithilien",1960),
@@ -149,8 +154,8 @@ let landmarks = [
 
 let distanceInput = document.getElementById("km-input");
 distanceInput.value = DISTANCE_KM;
-distanceInput.oninput = (e) => {
-    DISTANCE_KM = e.target.value;
+distanceInput.oninput = () => {
+    DISTANCE_KM = distanceInput.value;
     spawnPolyline();
     landmarks.forEach(landmark => {
         landmark.updateDivText();
@@ -174,6 +179,8 @@ async function start(){
         minZoom: -2,
         maxZoom: 2
     });
+
+    map.attributionControl.addAttribution("lotrproject.com (basemap)");
 
     const bounds = [[0, 0], [4334, 5000]];
     L.imageOverlay(mapImage, bounds).addTo(map);
@@ -214,7 +221,7 @@ async function spawnPolyline(){
         opacity: 0.9,
         smoothFactor: 0
     });
-    let popupText = "<strong>This line represents the<br>total distance travelled:</strong><br><div style=text-align:center;font-size:1.5em;>"+DISTANCE_KM+" km</div>";
+    let popupText = "<div style=text-align:center;><strong>The total length<br>of this line is</strong><br><div style=font-size:1.5em;>"+DISTANCE_KM+" km</div></div>";
     polylineBG.bindPopup(popupText)
     polyline.bindPopup(popupText)
     polylineBG.addTo(map);
