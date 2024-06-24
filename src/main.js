@@ -157,7 +157,7 @@ let landmarks = [
 let distanceInput = document.getElementById("km-input");
 distanceInput.value = DISTANCE_KM;
 distanceInput.oninput = () => {
-    DISTANCE_KM = distanceInput.value;
+    DISTANCE_KM = Math.abs(distanceInput.value);
     spawnPolyline();
     landmarks.forEach(landmark => {
         landmark.updateDivText();
