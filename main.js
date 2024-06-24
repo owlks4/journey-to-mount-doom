@@ -208,6 +208,10 @@ async function spawnPolyline(){
 
     let ptsToDistance = getPolylinePointsListUpToDistance(pointsList, distanceTravelledAlongLine);
 
+    if (ptsToDistance == null){
+        return;
+    }
+
     polylineBG = new L.Polyline(ptsToDistance, {
         color: 'black',
         weight: 12,
@@ -227,15 +231,20 @@ async function spawnPolyline(){
     polylineBG.addTo(map);
     polyline.addTo(map);
     map.flyTo(ptsToDistance[ptsToDistance.length - 1], 0.5);
-
-    console.log(polyline)
+    //console.log(polyline)
 }
 
 function getPolylinePointsListUpToDistance(pointsList, distanceKm){
     let newPoints = [];
     let cumuDist = 0;
 
-    console.log(pointsList.length);
+    if (pointsList == null){
+        return null;
+    }
+
+    if (distanceKm == 0){
+        return [pointsList[0]];
+    }
     
     for (let i = 0; i < pointsList.length; i++){
 
@@ -244,23 +253,21 @@ function getPolylinePointsListUpToDistance(pointsList, distanceKm){
         if (i > 0){
             distFromPrev = getDistance(pointsList[i-1], pointsList[i]) / 1000.0;
         }
-        console.log(cumuDist + distFromPrev + ", "+distanceKm)
+        //console.log(cumuDist + distFromPrev + ", "+distanceKm)
         if (cumuDist + distFromPrev < distanceKm){
-            console.log("Push a regular point")
+            //console.log("Push a regular point")
             newPoints.push(pointsList[i]);
             cumuDist += distFromPrev;
         } else {
-            console.log("Pushing partial last leg")
+            //console.log("Pushing partial last leg")
             let lastLegPartialDist = distanceKm - (cumuDist + distFromPrev);
             let proportionOfLastLegComplete = lastLegPartialDist / distFromPrev;
             newPoints.push([pointsList[i][0] + ((pointsList[i][0] - pointsList[i-1][0]) * proportionOfLastLegComplete),
                             pointsList[i][1] + ((pointsList[i][1] - pointsList[i-1][1]) * proportionOfLastLegComplete)]);
             break;
         }
-        console.log(cumuDist);
+        //console.log(cumuDist);
     }
-
-    console.log(newPoints);
-
+    //console.log(newPoints);
     return newPoints;
 }
