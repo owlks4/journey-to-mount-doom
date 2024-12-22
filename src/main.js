@@ -1,12 +1,6 @@
 import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
 import 'leaflet'
 import "leaflet-providers";
-import omnivore from 'leaflet-omnivore';
-import world_cities from "../public/world_cities.json"
-import Graph from 'node-dijkstra';
-import { getDistance } from 'geolib';
 import mapImage from '../public/map.webp'; 
 
 let FRODO_AND_SAM_PATH = [[1484.00, 1162.00], [1492.00, 1176.00], [1492.00, 1176.00], [1492.00, 1176.00], [1502.00, 1184.00], [1502.00, 1184.00], [1502.00, 1184.00], [1511.00, 1195.00], [1511.00, 1195.00], 
@@ -131,7 +125,7 @@ if (window.innerWidth < window.innerHeight){
 
 let markersLayer = null;
 
-let DISTANCE_KM = 43.5;   // <------ Hi! Update this to the number of kilometres you've travelled!
+let DISTANCE_KM = 100;   // <------ Hi! Update this to the number of kilometres you've travelled! You can also update it via the UI once the webpage is running.
 let polyline = null;
 let polylineBG = null;
 
